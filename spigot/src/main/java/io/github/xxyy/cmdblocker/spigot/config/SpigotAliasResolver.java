@@ -54,24 +54,8 @@ public class SpigotAliasResolver implements AliasResolver {
 
     @Override
     public List<String> resolve(String commandName) {
-        String rawName = CommandHelper.removeModPrefix(commandName).toLowerCase();
-        Command foundCommand;
-        if (commandMap != null) { //If we have the internal command map, we might as well use it
-            foundCommand = commandMap.get(commandName); //Versions with prefixes and aliases are stored too
-        } else {
-            foundCommand = plugin.getServer().getPluginCommand(commandName); //Bukkit is filtering internal commands so we can't get those here
-        }
-
-        if (foundCommand == null) {
-            return ImmutableList.of();
-        }
-
-        List<String> rtrn = new ArrayList<>(foundCommand.getAliases()); //Aliases are stored in lower case
-
-        rtrn.add(foundCommand.getName()); //Also stored in lower case
-        rtrn.remove(rawName); //Note that the argument must not always be the real name - users tend to specify aliases
-
-        return rtrn;
+       List<String> emptyList = Collection.emptyList();
+        return emptyList;
     }
 
     private Map<String, Command> stealCommandMap(Plugin plugin) {
