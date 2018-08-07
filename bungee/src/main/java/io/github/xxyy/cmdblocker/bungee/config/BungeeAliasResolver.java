@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Collection;
 
 /**
  * Resolves aliases on BungeeCord proxy servers.
@@ -53,22 +54,8 @@ public class BungeeAliasResolver implements AliasResolver {
 
     @Override
     public List<String> resolve(String commandName) {
-        String rawName = commandName.toLowerCase();
-        Command foundCommand = null;
-        if(commandMap != null) { //If we have the internal command map, we might as well use it
-            foundCommand = commandMap.get(commandName); //Versions with prefixes and aliases are stored too
-        }
-
-        if(foundCommand == null) { //This handles if the command is not found AND if we don't have the map
-            return ImmutableList.of();
-        }
-
-        List<String> rtrn = new ArrayList(Arrays.asList(foundCommand.getAliases())); //Aliases are stored in lower case
-
-        rtrn.add(foundCommand.getName()); //Also stored in lower case
-        rtrn.remove(rawName); //Note that the argument must not always be the real name - users tend to specify aliases
-
-        return rtrn;
+        List<String> emptyList = Collection.emptyList();
+        return emptyList;
     }
 
     private Map<String, Command> stealCommandMap(Plugin plugin) {
